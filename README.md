@@ -67,3 +67,5 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page. -->
+
+This Star Wars project is developed using the Star Wars API (SWAPI), where users can see all characters and filter them by movies, vehicles, starships, and species and In the detailed view, full information about the character is shown.
