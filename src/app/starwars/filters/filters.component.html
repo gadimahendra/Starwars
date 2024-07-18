@@ -1,0 +1,17 @@
+<div [id]="uniqId" class="select-box">
+    <div (click)="onClickSelectBox()" class="select-option">
+        <label
+            class="absolute top-3 left-[100px] {{selectedOption.length > 0? 'sele-label-class':'label-custn-class'}}">{{uniqId.toLocaleUpperCase()}}</label>
+        <input type="text" class="input threedots" id="soValue" [(ngModel)]="selectedOptionsArr" readonly />
+    </div>
+    <div class="content">
+        <ul class="options" #ullist>
+            <li class="flex align-middle gap-1" [class.selected-cls]="selectedOption.name == opt.name"
+                (click)="onSelectOption(opt)" *ngFor="let opt of options" [value]="opt">
+                <input type="checkbox" [checked]="opt.checked">
+                <!-- Add checkbox here -->
+                {{uniqId == 'films'? opt.title:opt.name}} {{uniqId !='birthYear'? getOptionId(opt):''}}
+            </li>
+        </ul>
+    </div>
+</div>

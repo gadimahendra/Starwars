@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+<div class="flex justify-center mt-4">
+    <div class="h-[80vh] w-[80vw] grid grid-cols-12 gap-4 ">
+        <div class="col-span-4    bg-white p-4 ">
+            <mat-icon class="cursor-pointer" (click)="navigateToHomePage()"
+                matTooltip="Back to Home page">arrow_back</mat-icon>
+            <div class="flex  mt-[70px] justify-center align-items-center">
+                <div class="profile-image-container">
+                    <img src="assets/people/{{id}}.jpg" class="profile-image" alt="Profile Image">
+                </div>
+            </div>
+
+            <div class="character-details">
+                <h2 class="character-name">{{character?.name}}</h2>
+                <div class="details">
+                    <p><strong>Name:</strong> <small>{{character?.name}}</small></p>
+                    <p><strong>Birth Year:</strong> <small>{{character?.birth_year}}</small></p>
+                    <p><strong>Gender:</strong> <small>{{character?.gender}}</small></p>
+                    <p><strong>Height:</strong> <small>{{character?.height}}</small></p>
+                    <p><strong>Weight:</strong> <small>{{character?.weight}}</small></p>
+                    <p><strong>Created At:</strong> <small>{{character?.created | date:'yyyy-MMM-dd hh:mm'}}</small></p>
+                    <p><strong>Edited At:</strong> <small>{{character?.edited | date:'yyyy-MMM-dd hh:mm'}}</small></p>
+                    <p><strong>Hair Color:</strong> <small>{{character?.hair_color}}</small></p>
+                    <p><strong>Eye Color:</strong> <small>{{character?.eye_color}}</small></p>
+                    <p><strong>Skin Color:</strong> <small>{{character?.skin_color}}</small></p>
+                    <p><strong>Hair Color:</strong> <small>{{character?.hair_color}}</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-8 overflow-auto  bg-white p-4">
+            <div *ngIf="characterFilms.length > 0 ">
+                <div class="flex items-center">
+                    <img class="h-[50px]" src='assets/films.png' />
+                    <h1 style="margin-bottom: 0px !important;" class="mb-0">FILMS</h1>
+                </div>
+                <div class="flex flex-col justify-evenly gap-2 mt-2">
+                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let film of characterFilms">
+                        <div class="flex justify-between align-middle">
+                            <h1>{{film.title}}</h1>
+                            <div>
+                                <p>Director: <small>{{film.director?? '--'}}</small></p>
+                                <p>Release Date: <small>{{film.release_date | date: 'yyyy-MMM-dd'}}</small></p>
+                            </div>
+                        </div>
+                        <p>Openind Crawl:<br /> <small>{{film.opening_crawl?? '--'}}</small></p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="vechicles.length > 0  " class="mt-4">
+                <div class="flex items-center">
+                    <img class="h-[50px]" src='assets/vehicle.png' />
+                    <h1 style="margin-bottom: 0px !important;" class="mb-0">VECHICLES</h1>
+                </div>
+                <div class="flex flex-col justify-evenly gap-2 mt-2">
+                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let vec of vechicles">
+                        <div class="flex justify-between align-middle">
+                            <h1>{{vec?.name}}</h1>
+                            <div>
+                                <p>Model: <small>{{vec.model?? '--'}}</small></p>
+                                <p>Manufacturer: <small>{{vec.manufacturer?? '--'}}</small></p>
+                            </div>
+                        </div>
+                        <p>Cargo Capacity:<small>{{vec.cargo_capacity?? '--'}}</small></p>
+                        <p>Vechile Class:<small>{{vec.vehicle_class?? '--'}}</small></p>
+                        <p>Speed:<small>{{vec.max_atmosphering_speed?? '--'}}</small></p>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="starships.length > 0  " class="mt-4">
+                <div class="flex items-center">
+                    <img class="h-[50px]" src='assets/starships.png' />
+                    <h1 style="margin-bottom: 0px !important;" class="mb-0">STARSHIPS</h1>
+                </div>
+                <div class="flex flex-col justify-evenly gap-2 mt-2">
+                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let stars of starships">
+                        <div class="flex justify-between align-middle">
+                            <h1>{{stars?.name}}</h1>
+                            <div>
+                                <p>Model: <small>{{stars.model?? '--'}}</small></p>
+                                <p>Manufacturer: <small>{{stars.manufacturer?? '--'}}</small></p>
+                            </div>
+                        </div>
+                        <p>Cargo Capacity:<small>{{stars.cargo_capacity?? '--'}}</small></p>
+                        <p>Starship Class:<small>{{stars.starship_class?? '--'}}</small></p>
+                        <p>Speed:<small>{{stars.max_atmosphering_speed?? '--'}}</small></p>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
