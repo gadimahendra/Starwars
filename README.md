@@ -29,7 +29,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Project is built using following frameworks and libraries:
 
-- angular v12.2.0;
+- angular 14.2.8;
 - angular/material v13.0.0;
 - rxjs v7.5.0;
 - Lodash: v4.17.21;
