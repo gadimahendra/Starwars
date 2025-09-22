@@ -4,8 +4,9 @@
 
 “Star Wars” application using [SWAPI]
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
+🔗 **Live Demo:** [starwars-ecru-seven.vercel.app](https://starwars-ecru-seven.vercel.app/)  
 
-### Requirements
+### Features
 
 - Home page
 - When the user opens the application
@@ -34,6 +35,7 @@ Project is built using following frameworks and libraries:
 - rxjs v7.5.0;
 - Lodash: v4.17.21;
 - Tailwind Css v3.4.5
+check live https://starwars-ecru-seven.vercel.app/
 
 ### Install and run
 
