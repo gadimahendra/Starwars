@@ -23,4 +23,8 @@ export class MovieService {
   getPersonById(id: any) {
     return this._http.get<any>(`${this.baseUrl}/people/${id}`);
   }
+
+  getPeopleBySearch(term: string) {
+    return this._http.get<any>(`${environment.baseUrl}/people/?search=${term}`);
+  }
 }
