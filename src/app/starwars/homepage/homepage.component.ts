@@ -22,35 +22,28 @@ export class HomepageComponent implements OnInit {
     private _service: MovieService,
     private router: Router,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.getStarwarsHomePage();
+
+    this.getStarwarsPage(this.peopleApi)
   }
 
-  getStarwarsHomePage() {
-    this._service.getStarwarsHomepage(this.peopleApi).subscribe(
+  getStarwarsPage(url: string) {
+    this.spinner.show();
+    this._service.getStarwarsHomepage(url).subscribe(
       (res: any) => {
-        this.people = this.people.concat(res.results);
-        this.totalPages = Math.ceil(this.people.length / this.pageSize);
-        this.totalPagesArray = Array(this.totalPages)
-          .fill(0)
-          .map((x, i) => i);
+        this.people = res.results; // only current page
+        this.totalPages = Math.ceil(res.count / this.pageSize);
+        this.totalPagesArray = Array(this.totalPages).fill(0).map((x, i) => i);
         this.updateVisiblePages();
-        this.paginateCharacters();
-        if (res.next) {
-          this.spinner.show();
-          this.peopleApi = res.next;
-          this.getStarwarsHomePage();
-        }
+        this.paginatedPeople = this.people; // current page results
         this.spinner.hide();
       },
-      (err: any) => {
-        this.spinner.hide();
-      }
+      (err) => this.spinner.hide()
     );
   }
+
 
   paginateCharacters(): void {
     const startIndex = this.pageIndex * this.pageSize;
@@ -62,7 +55,8 @@ export class HomepageComponent implements OnInit {
     if (this.pageIndex > 0) {
       this.pageIndex--;
       this.updateVisiblePages();
-      this.paginateCharacters();
+      const prevUrl = `https://swapi.dev/api/people/?page=${this.pageIndex + 1}`;
+      this.getStarwarsPage(prevUrl);
     }
   }
 
@@ -70,15 +64,18 @@ export class HomepageComponent implements OnInit {
     if (this.pageIndex < this.totalPages - 1) {
       this.pageIndex++;
       this.updateVisiblePages();
-      this.paginateCharacters();
+      const nextUrl = `https://swapi.dev/api/people/?page=${this.pageIndex + 1}`;
+      this.getStarwarsPage(nextUrl);
     }
   }
 
   goToPage(page: number): void {
     this.pageIndex = page;
     this.updateVisiblePages();
-    this.paginateCharacters();
+    const url = `https://swapi.dev/api/people/?page=${page + 1}`;
+    this.getStarwarsPage(url);
   }
+
 
   updateVisiblePages(): void {
     const maxVisiblePages = 3; // Maximum number of page numbers to display
@@ -224,21 +221,6 @@ export class HomepageComponent implements OnInit {
           return this.starshipsFilterArray.includes(shipId);
         });
       }
-      // if (this.minBirthYear && this.maxBirthYear) {
-      //   let minYear = this.extractNumericPart(this.minBirthYear);
-      //   let maxYear = this.extractNumericPart(this.maxBirthYear);
-      //   let charBirthYear = this.extractNumericPart(char.birth_year);
-      //   console.log(
-      //     'birthyear',
-      //     charBirthYear,
-      //     minYear,
-      //     charBirthYear,
-      //     maxYear,
-      //     charBirthYear >= minYear && charBirthYear <= maxYear
-      //   );
-      //   matchesBirthYear = charBirthYear >= minYear && charBirthYear <= maxYear;
-      // }
-
       return matchesFilms && matchesSpecies && matvhvehicles && matchstarShips;
     });
   }
@@ -253,10 +235,10 @@ export class HomepageComponent implements OnInit {
     let string = '';
     species.length > 0
       ? species.forEach((spec: any, i: any) => {
-          let split = spec.split('/');
-          string += type + split[split.length - 2];
-          string += species.length - 1 > i ? ',' : '';
-        })
+        let split = spec.split('/');
+        string += type + split[split.length - 2];
+        string += species.length - 1 > i ? ',' : '';
+      })
       : '';
     return string;
   }

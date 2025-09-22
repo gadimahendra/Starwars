@@ -1,96 +1,109 @@
 <app-navbar></app-navbar>
-<div class="flex justify-center mt-4">
-    <div class="h-[80vh] w-[80vw] grid grid-cols-12 gap-4 ">
-        <div class="col-span-4    bg-white p-4 ">
-            <mat-icon class="cursor-pointer" (click)="navigateToHomePage()"
-                matTooltip="Back to Home page">arrow_back</mat-icon>
-            <div class="flex  mt-[70px] justify-center align-items-center">
-                <div class="profile-image-container">
-                    <img src="assets/people/{{id}}.jpg" class="profile-image" alt="Profile Image">
+
+<div class="from-gray-900 via-gray-800 to-gray-700 text-gray-900 p-4">
+    <div class="flex flex-col md:flex-row gap-6 mt-4">
+
+        <!-- Left Column: Profile & Details -->
+        <div
+            class="w-full md:w-3/12 col-span-12 md:col-span-4 bg-white/60 backdrop-blur-md rounded-2xl p-6 shadow-lg flex flex-col items-center relative">
+
+            <!-- Back Icon -->
+            <mat-icon class="cursor-pointer absolute top-4 left-4 text-gray-700" (click)="navigateToHomePage()"
+                matTooltip="Back to Home page">
+                arrow_back
+            </mat-icon>
+
+            <!-- Profile Image -->
+            <div class="profile-image-container my-4">
+                <img src="assets/people/{{id}}.jpg" loading="lazy" [alt]="id"
+                    class="profile-image h-[210px] rounded-full shadow-md" />
+            </div>
+
+            <!-- Character Details -->
+            <div class="text-left w-full space-y-2">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">{{character?.name}}</h2>
+                <div class="text-gray-700 text-sm space-y-1">
+                    <p><strong>Name:</strong> {{character?.name}}</p>
+                    <p><strong>Birth Year:</strong> {{character?.birth_year}}</p>
+                    <p><strong>Gender:</strong> {{character?.gender}}</p>
+                    <p><strong>Height:</strong> {{character?.height}}</p>
+                    <p><strong>Weight:</strong> {{character?.weight}}</p>
+                    <p><strong>Hair Color:</strong> {{character?.hair_color}}</p>
+                    <p><strong>Eye Color:</strong> {{character?.eye_color}}</p>
+                    <p><strong>Skin Color:</strong> {{character?.skin_color}}</p>
+                    <p><strong>Created At:</strong> {{character?.created | date:'yyyy-MMM-dd hh:mm'}}</p>
+                    <p><strong>Edited At:</strong> {{character?.edited | date:'yyyy-MMM-dd hh:mm'}}</p>
                 </div>
             </div>
 
-            <div class="character-details">
-                <h2 class="character-name">{{character?.name}}</h2>
-                <div class="details">
-                    <p><strong>Name:</strong> <small>{{character?.name}}</small></p>
-                    <p><strong>Birth Year:</strong> <small>{{character?.birth_year}}</small></p>
-                    <p><strong>Gender:</strong> <small>{{character?.gender}}</small></p>
-                    <p><strong>Height:</strong> <small>{{character?.height}}</small></p>
-                    <p><strong>Weight:</strong> <small>{{character?.weight}}</small></p>
-                    <p><strong>Created At:</strong> <small>{{character?.created | date:'yyyy-MMM-dd hh:mm'}}</small></p>
-                    <p><strong>Edited At:</strong> <small>{{character?.edited | date:'yyyy-MMM-dd hh:mm'}}</small></p>
-                    <p><strong>Hair Color:</strong> <small>{{character?.hair_color}}</small></p>
-                    <p><strong>Eye Color:</strong> <small>{{character?.eye_color}}</small></p>
-                    <p><strong>Skin Color:</strong> <small>{{character?.skin_color}}</small></p>
-                    <p><strong>Hair Color:</strong> <small>{{character?.hair_color}}</small></p>
-                </div>
-            </div>
         </div>
-        <div class="col-span-8 overflow-auto  bg-white p-4">
-            <div *ngIf="characterFilms.length > 0 ">
-                <div class="flex items-center">
-                    <img class="h-[50px]" src='assets/films.png' />
-                    <h1 style="margin-bottom: 0px !important;" class="mb-0">FILMS</h1>
+
+        <!-- Right Column: Films, Vehicles, Starships -->
+        <div style="scrollbar-width: none;"
+            class="w-full md:w-9/12 col-span-12 md:col-span-8 bg-white/60 backdrop-blur-md rounded-2xl p-6 shadow-lg overflow-auto max-h-screen ">
+
+            <!-- Films Section -->
+            <div *ngIf="characterFilms.length > 0" class="mb-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <img class="h-12 w-12" loading="lazy" alt="films" src='assets/films.png' />
+                    <h1 class="text-gray-800 text-xl font-bold">FILMS</h1>
                 </div>
-                <div class="flex flex-col justify-evenly gap-2 mt-2">
-                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let film of characterFilms">
-                        <div class="flex justify-between align-middle">
-                            <h1>{{film.title}}</h1>
-                            <div>
-                                <p>Director: <small>{{film.director?? '--'}}</small></p>
-                                <p>Release Date: <small>{{film.release_date | date: 'yyyy-MMM-dd'}}</small></p>
+                <div class="flex flex-col gap-3">
+                    <div *ngFor="let film of characterFilms" class="bg-white/30 p-4 rounded-xl shadow hover:shadow-lg ">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="font-semibold">{{film.title}}</h2>
+                            <div class="text-gray-600 text-xs">
+                                <p>Director: {{film.director ?? '--'}}</p>
+                                <p>Release: {{film.release_date | date:'yyyy-MMM-dd'}}</p>
                             </div>
                         </div>
-                        <p>Openind Crawl:<br /> <small>{{film.opening_crawl?? '--'}}</small></p>
-
+                        <p class="text-gray-700 text-sm text-justify ">Opening Crawl: {{film.opening_crawl ?? '--'}}</p>
                     </div>
                 </div>
             </div>
 
-            <div *ngIf="vechicles.length > 0  " class="mt-4">
-                <div class="flex items-center">
-                    <img class="h-[50px]" src='assets/vehicle.png' />
-                    <h1 style="margin-bottom: 0px !important;" class="mb-0">VECHICLES</h1>
+            <!-- Vehicles Section -->
+            <div *ngIf="vechicles.length > 0" class="mb-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <img class="h-12 w-12" loading="lazy" alt="vehicles" src='assets/vehicle.png' />
+                    <h1 class="text-gray-800 text-xl font-bold">VEHICLES</h1>
                 </div>
-                <div class="flex flex-col justify-evenly gap-2 mt-2">
-                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let vec of vechicles">
-                        <div class="flex justify-between align-middle">
-                            <h1>{{vec?.name}}</h1>
-                            <div>
-                                <p>Model: <small>{{vec.model?? '--'}}</small></p>
-                                <p>Manufacturer: <small>{{vec.manufacturer?? '--'}}</small></p>
+                <div class="flex flex-col gap-3">
+                    <div *ngFor="let vec of vechicles" class="let film of characterFilms"
+                        class="bg-white/30 p-4 rounded-xl shadow hover:shadow-lg ">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="font-semibold">{{vec?.name}}</h2>
+                            <div class="text-gray-600 text-xs">
+                                <p>Model: {{vec.model ?? '--'}}</p>
+                                <p>Manufacturer: {{vec.manufacturer ?? '--'}}</p>
                             </div>
                         </div>
-                        <p>Cargo Capacity:<small>{{vec.cargo_capacity?? '--'}}</small></p>
-                        <p>Vechile Class:<small>{{vec.vehicle_class?? '--'}}</small></p>
-                        <p>Speed:<small>{{vec.max_atmosphering_speed?? '--'}}</small></p>
-
-
+                        <p class="text-gray-700 text-sm">Cargo Capacity: {{vec.cargo_capacity ?? '--'}}</p>
+                        <p class="text-gray-700 text-sm">Vehicle Class: {{vec.vehicle_class ?? '--'}}</p>
+                        <p class="text-gray-700 text-sm">Speed: {{vec.max_atmosphering_speed ?? '--'}}</p>
                     </div>
                 </div>
             </div>
 
-
-            <div *ngIf="starships.length > 0  " class="mt-4">
-                <div class="flex items-center">
-                    <img class="h-[50px]" src='assets/starships.png' />
-                    <h1 style="margin-bottom: 0px !important;" class="mb-0">STARSHIPS</h1>
+            <!-- Starships Section -->
+            <div *ngIf="starships.length > 0" class="mb-6">
+                <div class="flex items-center gap-3 mb-2">
+                    <img class="h-12 w-12" loading="lazy" alt="starships" src='assets/starships.png' />
+                    <h1 class="text-gray-800 text-xl font-bold">STARSHIPS</h1>
                 </div>
-                <div class="flex flex-col justify-evenly gap-2 mt-2">
-                    <div class="bg-black text-white rounded-sm p-2 " *ngFor=" let stars of starships">
-                        <div class="flex justify-between align-middle">
-                            <h1>{{stars?.name}}</h1>
-                            <div>
-                                <p>Model: <small>{{stars.model?? '--'}}</small></p>
-                                <p>Manufacturer: <small>{{stars.manufacturer?? '--'}}</small></p>
+                <div class="flex flex-col gap-3">
+                    <div *ngFor="let stars of starships" class="let film of characterFilms"
+                        class="bg-white/30 p-4 rounded-xl shadow hover:shadow-lg ">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="font-semibold">{{stars?.name}}</h2>
+                            <div class="text-gray-600 text-xs">
+                                <p>Model: {{stars.model ?? '--'}}</p>
+                                <p>Manufacturer: {{stars.manufacturer ?? '--'}}</p>
                             </div>
                         </div>
-                        <p>Cargo Capacity:<small>{{stars.cargo_capacity?? '--'}}</small></p>
-                        <p>Starship Class:<small>{{stars.starship_class?? '--'}}</small></p>
-                        <p>Speed:<small>{{stars.max_atmosphering_speed?? '--'}}</small></p>
-
-
+                        <p class="text-gray-700 text-sm">Cargo Capacity: {{stars.cargo_capacity ?? '--'}}</p>
+                        <p class="text-gray-700 text-sm">Starship Class: {{stars.starship_class ?? '--'}}</p>
+                        <p class="text-gray-700 text-sm">Speed: {{stars.max_atmosphering_speed ?? '--'}}</p>
                     </div>
                 </div>
             </div>
@@ -98,4 +111,5 @@
         </div>
     </div>
 </div>
+
 <ngx-spinner type="ball-scale-multiple"></ngx-spinner>

@@ -2,18 +2,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  background-color: #e6e6e6;
-}
 
 html,
 body {
   height: 100%;
-  background-image: url("./assets/background_navbar.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-body {
   margin: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif !important;
+}
+
+body {
+  // background-image: url("./assets/background_navbar.jpg");
+  background: linear-gradient(160deg, #0d0d1a 0%, #1a1a2e 50%, #0f0f1f 100%);
+  /* optional: add a subtle purple glow */
+  background: radial-gradient(circle at top right, #3b0080, #0d0d1a 70%);
+  background-size: cover;
+  /* cover full area */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  /* keeps background fixed on scroll */
+  background-position: center;
+  min-height: 100%;
+  /* ensure full height even if content grows */
 }
