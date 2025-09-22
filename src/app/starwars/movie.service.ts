@@ -6,7 +6,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class MovieService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
+
+  baseUrl = 'https://swapi.dev/api'
 
   getStarwarsHomepage(api: string) {
     return this._http.get<any>(api);
@@ -14,11 +16,11 @@ export class MovieService {
 
   getFiltersType(type: string, page: any = '') {
     return this._http.get<any>(
-      `${environment.baseUrl}/${type}/${page !== '' ? `${page}` : ''}`
+      `${this.baseUrl}/${type}/${page !== '' ? `${page}` : ''}`
     );
   }
 
   getPersonById(id: any) {
-    return this._http.get<any>(`${environment.baseUrl}/people/${id}`);
+    return this._http.get<any>(`${this.baseUrl}/people/${id}`);
   }
 }
