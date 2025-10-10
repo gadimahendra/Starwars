@@ -109,6 +109,11 @@ export class FiltersComponent implements OnInit {
 
   onScroll(event: Event) {
     const element = event.target as HTMLElement;
+    console.log(
+      'round(element.scrollHeight - element.scrollTop)',
+      round(element.scrollHeight - element.scrollTop)
+    );
+    console.log('element.clientHeight', element.clientHeight);
     if (
       round(element.scrollHeight - element.scrollTop) == element.clientHeight
     ) {
